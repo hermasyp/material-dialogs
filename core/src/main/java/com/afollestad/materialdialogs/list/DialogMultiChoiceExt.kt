@@ -42,7 +42,7 @@ fun MaterialDialog.listItemsMultiChoice(
     return this
   }
 
-  setActionButtonEnabled(POSITIVE, initialSelection.isEmpty())
+  setActionButtonEnabled(POSITIVE, initialSelection.isNotEmpty())
   return customListAdapter(
       MultiChoiceDialogAdapter(
           dialog = this,

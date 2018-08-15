@@ -42,7 +42,7 @@ fun MaterialDialog.listItemsSingleChoice(
     return this
   }
 
-  setActionButtonEnabled(POSITIVE, initialSelection < 0)
+  setActionButtonEnabled(POSITIVE, initialSelection > -1)
   return customListAdapter(
       SingleChoiceDialogAdapter(
           dialog = this,
