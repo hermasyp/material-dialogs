@@ -37,6 +37,7 @@ import com.afollestad.materialdialogs.shared.getDrawable
 import com.afollestad.materialdialogs.shared.isVisible
 import com.afollestad.materialdialogs.shared.updatePadding
 
+@Suppress("UNCHECKED_CAST")
 @RestrictTo(Scope.LIBRARY_GROUP)
 fun <T> MaterialDialog.inflate(
   @LayoutRes res: Int,

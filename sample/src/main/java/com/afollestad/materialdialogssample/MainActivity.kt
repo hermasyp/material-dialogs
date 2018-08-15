@@ -382,7 +382,7 @@ class MainActivity : AppCompatActivity() {
       MaterialDialog(this).show {
         title(R.string.socialNetworks)
         listItemsMultiChoice(
-            R.array.socialNetworks, initialSelection = arrayOf(1, 3)
+            R.array.socialNetworks, initialSelection = intArrayOf(1, 3)
         ) { _, indices, text ->
           toast("Selected items ${text.joinToString()} at indices ${indices.joinToString()}")
         }
@@ -394,7 +394,7 @@ class MainActivity : AppCompatActivity() {
       MaterialDialog(this).show {
         title(R.string.socialNetworks)
         listItemsMultiChoice(
-            R.array.socialNetworks, initialSelection = arrayOf(1, 3)
+            R.array.socialNetworks, initialSelection = intArrayOf(1, 3)
         ) { _, indices, text ->
           toast("Selected items ${text.joinToString()} at indices ${indices.joinToString()}")
         }
@@ -407,7 +407,7 @@ class MainActivity : AppCompatActivity() {
       MaterialDialog(this).show {
         title(R.string.socialNetworks)
         listItemsMultiChoice(
-            R.array.socialNetworks_longItems, initialSelection = arrayOf(0, 2)
+            R.array.socialNetworks_longItems, initialSelection = intArrayOf(0, 2)
         ) { _, indices, text ->
           toast("Selected items ${text.joinToString()} at indices ${indices.joinToString()}")
         }
@@ -421,8 +421,8 @@ class MainActivity : AppCompatActivity() {
         title(R.string.socialNetworks)
         listItemsMultiChoice(
             R.array.socialNetworks,
-            initialSelection = arrayOf(2, 3),
-            disabledIndices = arrayOf(1, 3)
+            initialSelection = intArrayOf(2, 3),
+            disabledIndices = intArrayOf(1, 3)
         ) { _, indices, text ->
           toast("Selected items ${text.joinToString()} at indices ${indices.joinToString()}")
         }
