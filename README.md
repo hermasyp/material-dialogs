@@ -673,6 +673,9 @@ dependencies {
 
 <img src="https://raw.githubusercontent.com/afollestad/material-dialogs/af/2.0/art/file_chooser.png" width="250px" />
 
+**Note:** File choosers require your app to have permission to `READ_EXTERNAL_STORAGE`, otherwise 
+directory listings will come back empty.
+
 A dead simple file chooser looks like this:
 
 ```kotlin
@@ -731,6 +734,9 @@ MaterialDialog(this)
 ```
 
 ## Folder Choosers
+
+**Note:** File choosers require your app to have permission to `READ_EXTERNAL_STORAGE`, otherwise 
+directory listings will come back empty.
 
 Folder choosers are basically the same as file choosers, with a few minor differences: 1) only folders 
 are shown, even when a custom filter is applied. 2) the selection callback is never invoked on a 
