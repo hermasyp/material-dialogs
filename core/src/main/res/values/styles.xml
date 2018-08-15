@@ -91,6 +91,7 @@
     <item name="android:layout_marginStart">@dimen/md_listitem_margin_left</item>
     <item name="android:layout_marginEnd">@dimen/md_dialog_frame_margin_horizontal</item>
     <item name="android:textSize">@dimen/md_listitem_textsize</item>
+    <item name="android:textColor">@color/md_list_item_textcolor</item>
   </style>
 
   <style name="MD_ListItem.Choice">
@@ -123,6 +124,7 @@
     <item name="android:paddingStart">@dimen/md_listitem_control_margin</item>
     <item name="android:paddingTop">@dimen/md_listitem_vertical_margin_choice</item>
     <item name="android:textSize">@dimen/md_listitem_textsize</item>
+    <item name="android:textColor">@color/md_list_item_textcolor</item>
     <item name="android:layout_marginTop">0dp</item>
     <item name="android:layout_marginBottom">0dp</item>
   </style>

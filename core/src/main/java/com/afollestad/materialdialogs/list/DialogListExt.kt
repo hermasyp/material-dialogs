@@ -57,6 +57,7 @@ fun MaterialDialog.customListAdapter(
 fun MaterialDialog.listItems(
   @ArrayRes res: Int? = null,
   items: Array<String>? = null,
+  disabledIndices: IntArray? = null,
   waitForPositiveButton: Boolean = true,
   selection: ItemListener = null
 ): MaterialDialog {
@@ -65,14 +66,20 @@ fun MaterialDialog.listItems(
   val adapter = getListAdapter()
 
   if (adapter is PlainListDialogAdapter) {
-    adapter.replaceItems(array, selection)
+    if (array != null) {
+      adapter.replaceItems(array, selection)
+    }
+    if (disabledIndices != null) {
+      adapter.disableItems(disabledIndices)
+    }
     return this
   }
 
   return customListAdapter(
       PlainListDialogAdapter(
           dialog = this,
-          items = array,
+          items = array!!,
+          disabledItems = disabledIndices,
           waitForActionButton = waitForPositiveButton,
           selection = selection
       )

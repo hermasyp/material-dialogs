@@ -29,24 +29,31 @@ import com.afollestad.materialdialogs.utilext.getStringArray
 fun MaterialDialog.listItemsSingleChoice(
   @ArrayRes res: Int? = null,
   items: Array<String>? = null,
+  disabledIndices: IntArray? = null,
   initialSelection: Int = -1,
   waitForPositiveButton: Boolean = true,
   selection: SingleChoiceListener = null
 ): MaterialDialog {
-  assertOneSet(res, items)
   val array = items ?: getStringArray(res)
   val adapter = getListAdapter()
 
   if (adapter is SingleChoiceDialogAdapter) {
-    adapter.replaceItems(array, selection)
+    if (array != null) {
+      adapter.replaceItems(array, selection)
+    }
+    if (disabledIndices != null) {
+      adapter.disableItems(disabledIndices)
+    }
     return this
   }
 
+  assertOneSet(res, items)
   setActionButtonEnabled(POSITIVE, initialSelection > -1)
   return customListAdapter(
       SingleChoiceDialogAdapter(
           dialog = this,
-          items = array,
+          items = array!!,
+          disabledItems = disabledIndices,
           initialSelection = initialSelection,
           waitForActionButton = waitForPositiveButton,
           selection = selection

@@ -29,24 +29,31 @@ import com.afollestad.materialdialogs.utilext.getStringArray
 fun MaterialDialog.listItemsMultiChoice(
   @ArrayRes res: Int? = null,
   items: Array<String>? = null,
-  initialSelection: Array<Int> = emptyArray(),
+  disabledIndices: IntArray? = null,
+  initialSelection: IntArray = IntArray(0),
   waitForPositiveButton: Boolean = true,
   selection: MultiChoiceListener = null
 ): MaterialDialog {
-  assertOneSet(res, items)
   val array = items ?: getStringArray(res)
   val adapter = getListAdapter()
 
   if (adapter is MultiChoiceDialogAdapter) {
-    adapter.replaceItems(array, selection)
+    if (array != null) {
+      adapter.replaceItems(array, selection)
+    }
+    if (disabledIndices != null) {
+      adapter.disableItems(disabledIndices)
+    }
     return this
   }
 
+  assertOneSet(res, items)
   setActionButtonEnabled(POSITIVE, initialSelection.isNotEmpty())
   return customListAdapter(
       MultiChoiceDialogAdapter(
           dialog = this,
-          items = array,
+          items = array!!,
+          disabledItems = disabledIndices,
           initialSelection = initialSelection,
           waitForActionButton = waitForPositiveButton,
           selection = selection

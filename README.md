@@ -201,7 +201,7 @@ MaterialDialog(this)
 
 ### Kotlin Extras
 
-As an added little bonus, there's a cool way you can setup and show dialogs in a simple call:
+There's a cool way you can setup and show dialogs in a simple call with Kotlin:
 
 ```kotlin
 MaterialDialog(this).show {
@@ -320,6 +320,17 @@ MaterialDialog(this)
 ...then the callback isn't invoked until the user selects an item *and* taps the positive action 
 button. You can override that behavior using the `waitForPositiveButton` argument.
 
+An added bonus, you can disable items from being selected/unselected:
+
+```kotlin
+val indices = intArrayOf(0, 2)
+
+MaterialDialog(this)
+  ...
+  .listItemsSingleChoice(R.array.my_items, disabledIndices = indices)
+  .show()
+```
+
 ### Multiple Choice
 
 <img src="https://raw.githubusercontent.com/afollestad/material-dialogs/af/2.0/art/multi_choice_list.png" width="250px" />
@@ -329,7 +340,7 @@ Single choice lists use the `listItemsMultiChoice` extension on `MaterialDialog`
 ```kotlin
 MaterialDialog(this)
   ...
-  .listItemsMultiChoice(R.array.my_items, initialSelection = 1) { _, index, text ->
+  .listItemsMultiChoice(R.array.my_items) { _, index, text ->
     // 
   }
   .show()
@@ -349,7 +360,7 @@ MaterialDialog(this)
 If you want an option to be selected when the dialog opens, you can pass an `initialSelection` index):
 
 ```kotlin
-val indices = arrayOf(1, 3)
+val indices = intArrayOf(1, 3)
 
 MaterialDialog(this)
   ...
@@ -374,7 +385,7 @@ you add a positive action button...
 ```kotlin
 MaterialDialog(this)
   ...
-  .listItemsSingleChoice(R.array.my_items) { dialog, indices, items ->
+  .listItemsMultiChoice(R.array.my_items) { dialog, indices, items ->
     // Invoked when the user selects an item
   }
   .show()
@@ -382,6 +393,17 @@ MaterialDialog(this)
 
 ...then the callback isn't invoked until the user select one or more items *and* taps the positive 
 action button. You can override that behavior using the `waitForPositiveButton` argument.
+
+An added bonus, you can disable items from being selected/unselected:
+
+```kotlin
+val indices = intArrayOf(0, 2)
+
+MaterialDialog(this)
+  ...
+  .listItemsMultiChoice(R.array.my_items, disabledIndices = indices)
+  .show()
+```
 
 ### Custom Adapters 
 

@@ -235,6 +235,14 @@
         android:text="Single Choice, Long Items"
         />
 
+    <Button
+        android:id="@+id/single_choice_disabled_items"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="Single Choice, Disabled Items"
+        />
+
     <!-- Multiple Choice Lists -->
 
     <TextView
@@ -264,6 +272,14 @@
         android:layout_height="@dimen/sample_button_height"
         android:layout_marginTop="@dimen/sample_button_spacing"
         android:text="Multiple Choice, Long Items"
+        />
+
+    <Button
+        android:id="@+id/multiple_choice_disabled_items"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="Multiple Choice, Disabled Items"
         />
 
     <!-- Action Buttons -->

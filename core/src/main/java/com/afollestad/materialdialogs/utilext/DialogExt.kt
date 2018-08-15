@@ -131,7 +131,7 @@ internal fun MaterialDialog.getString(
   return windowContext.resources.getText(resourceId)
 }
 
-internal fun MaterialDialog.getStringArray(@ArrayRes res: Int?): Array<String> {
+internal fun MaterialDialog.getStringArray(@ArrayRes res: Int?): Array<String>? {
   if (res == null) return emptyArray()
   return windowContext.resources.getStringArray(res)
 }

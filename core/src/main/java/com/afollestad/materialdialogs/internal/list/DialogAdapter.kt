@@ -7,5 +7,7 @@ interface DialogAdapter<IT, SL> {
     listener: SL
   )
 
+  fun disableItems(indices: IntArray)
+
   fun positiveButtonClicked()
 }

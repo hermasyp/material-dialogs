@@ -34,6 +34,14 @@ internal class MultiChoiceViewHolder(
   val controlView: AppCompatCheckBox = itemView.findViewById(R.id.md_control)
   val titleView: TextView = itemView.findViewById(R.id.md_title)
 
+  var isEnabled: Boolean
+    get() = itemView.isEnabled
+    set(value) {
+      itemView.isEnabled = value
+      controlView.isEnabled = value
+      titleView.isEnabled = value
+    }
+
   override fun onClick(view: View) = adapter.itemClicked(adapterPosition)
 }
 
@@ -45,12 +53,13 @@ internal class MultiChoiceViewHolder(
 internal class MultiChoiceDialogAdapter(
   private var dialog: MaterialDialog,
   internal var items: Array<String>,
-  initialSelection: Array<Int>,
+  disabledItems: IntArray?,
+  initialSelection: IntArray,
   private val waitForActionButton: Boolean,
   internal var selection: MultiChoiceListener
 ) : RecyclerView.Adapter<MultiChoiceViewHolder>(), DialogAdapter<String, MultiChoiceListener> {
 
-  var currentSelection: Array<Int> = initialSelection
+  private var currentSelection: IntArray = initialSelection
     set(value) {
       val previousSelection = field
       field = value
@@ -67,6 +76,7 @@ internal class MultiChoiceDialogAdapter(
         }
       }
     }
+  var disabledIndices: IntArray = disabledItems ?: IntArray(0)
 
   internal fun itemClicked(index: Int) {
     val newSelection = this.currentSelection.toMutableList()
@@ -75,7 +85,7 @@ internal class MultiChoiceDialogAdapter(
     } else {
       newSelection.add(index)
     }
-    this.currentSelection = newSelection.toTypedArray()
+    this.currentSelection = newSelection.toIntArray()
 
     if (waitForActionButton && dialog.hasActionButtons()) {
       // Wait for action button, don't call listener
@@ -108,6 +118,8 @@ internal class MultiChoiceDialogAdapter(
     holder: MultiChoiceViewHolder,
     position: Int
   ) {
+    holder.isEnabled = !disabledIndices.contains(position)
+
     holder.controlView.isChecked = currentSelection.contains(position)
     holder.titleView.text = items[position]
     holder.itemView.background = dialog.getItemSelector()
@@ -127,5 +139,10 @@ internal class MultiChoiceDialogAdapter(
     this.items = items
     this.selection = listener
     this.notifyDataSetChanged()
+  }
+
+  override fun disableItems(indices: IntArray) {
+    this.disabledIndices = indices
+    notifyDataSetChanged()
   }
 }

@@ -72,8 +72,10 @@ import kotlinx.android.synthetic.main.activity_main.list_titled_buttons
 import kotlinx.android.synthetic.main.activity_main.misc_dialog_callbacks
 import kotlinx.android.synthetic.main.activity_main.multiple_choice
 import kotlinx.android.synthetic.main.activity_main.multiple_choice_buttons
+import kotlinx.android.synthetic.main.activity_main.multiple_choice_disabled_items
 import kotlinx.android.synthetic.main.activity_main.multiple_choice_long_items
 import kotlinx.android.synthetic.main.activity_main.single_choice_buttons_titled
+import kotlinx.android.synthetic.main.activity_main.single_choice_disabled_items
 import kotlinx.android.synthetic.main.activity_main.single_choice_long_items
 import kotlinx.android.synthetic.main.activity_main.single_choice_titled
 
@@ -363,6 +365,19 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
+    single_choice_disabled_items.setOnClickListener {
+      MaterialDialog(this).show {
+        title(R.string.socialNetworks)
+        listItemsSingleChoice(
+            R.array.socialNetworks, initialSelection = 1, disabledIndices = intArrayOf(1, 3)
+        ) { _, index, text ->
+          toast("Selected item $text at index $index")
+        }
+        positiveButton(R.string.choose)
+        debugMode(debugMode)
+      }
+    }
+
     multiple_choice.setOnClickListener {
       MaterialDialog(this).show {
         title(R.string.socialNetworks)
@@ -392,7 +407,22 @@ class MainActivity : AppCompatActivity() {
       MaterialDialog(this).show {
         title(R.string.socialNetworks)
         listItemsMultiChoice(
-            R.array.socialNetworks_longItems, initialSelection = arrayOf(1, 3)
+            R.array.socialNetworks_longItems, initialSelection = arrayOf(0, 2)
+        ) { _, indices, text ->
+          toast("Selected items ${text.joinToString()} at indices ${indices.joinToString()}")
+        }
+        positiveButton(R.string.choose)
+        debugMode(debugMode)
+      }
+    }
+
+    multiple_choice_disabled_items.setOnClickListener {
+      MaterialDialog(this).show {
+        title(R.string.socialNetworks)
+        listItemsMultiChoice(
+            R.array.socialNetworks,
+            initialSelection = arrayOf(2, 3),
+            disabledIndices = arrayOf(1, 3)
         ) { _, indices, text ->
           toast("Selected items ${text.joinToString()} at indices ${indices.joinToString()}")
         }

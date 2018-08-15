@@ -42,9 +42,12 @@ internal class PlainListViewHolder(
 internal class PlainListDialogAdapter(
   private var dialog: MaterialDialog,
   internal var items: Array<String>,
+  disabledItems: IntArray?,
   private var waitForActionButton: Boolean,
   internal var selection: ItemListener
 ) : RecyclerView.Adapter<PlainListViewHolder>(), DialogAdapter<String, ItemListener> {
+
+  private var disabledIndices: IntArray = disabledItems ?: IntArray(0)
 
   fun itemClicked(index: Int) {
     if (waitForActionButton && dialog.hasActionButtons()) {
@@ -82,6 +85,8 @@ internal class PlainListDialogAdapter(
     holder: PlainListViewHolder,
     position: Int
   ) {
+    holder.itemView.isEnabled = !disabledIndices.contains(position)
+
     val titleValue = items[position]
     holder.titleView.text = titleValue
     holder.itemView.background = dialog.getItemSelector()
@@ -105,5 +110,10 @@ internal class PlainListDialogAdapter(
     this.items = items
     this.selection = listener
     this.notifyDataSetChanged()
+  }
+
+  override fun disableItems(indices: IntArray) {
+    this.disabledIndices = indices
+    notifyDataSetChanged()
   }
 }

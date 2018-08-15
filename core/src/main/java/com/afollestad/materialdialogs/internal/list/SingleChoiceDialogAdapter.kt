@@ -34,6 +34,14 @@ internal class SingleChoiceViewHolder(
   val controlView: AppCompatRadioButton = itemView.findViewById(R.id.md_control)
   val titleView: TextView = itemView.findViewById(R.id.md_title)
 
+  var isEnabled: Boolean
+    get() = itemView.isEnabled
+    set(value) {
+      itemView.isEnabled = value
+      controlView.isEnabled = value
+      titleView.isEnabled = value
+    }
+
   override fun onClick(view: View) = adapter.itemClicked(adapterPosition)
 }
 
@@ -45,18 +53,20 @@ internal class SingleChoiceViewHolder(
 internal class SingleChoiceDialogAdapter(
   private var dialog: MaterialDialog,
   internal var items: Array<String>,
+  disabledItems: IntArray?,
   initialSelection: Int,
   private val waitForActionButton: Boolean,
   internal var selection: SingleChoiceListener
 ) : RecyclerView.Adapter<SingleChoiceViewHolder>(), DialogAdapter<String, SingleChoiceListener> {
 
-  var currentSelection: Int = initialSelection
+  private var currentSelection: Int = initialSelection
     set(value) {
       val previousSelection = field
       field = value
       notifyItemChanged(previousSelection)
       notifyItemChanged(value)
     }
+  var disabledIndices: IntArray = disabledItems ?: IntArray(0)
 
   internal fun itemClicked(index: Int) {
     this.currentSelection = index
@@ -90,6 +100,8 @@ internal class SingleChoiceDialogAdapter(
     holder: SingleChoiceViewHolder,
     position: Int
   ) {
+    holder.isEnabled = !disabledIndices.contains(position)
+
     holder.controlView.isChecked = currentSelection == position
     holder.titleView.text = items[position]
     holder.itemView.background = dialog.getItemSelector()
@@ -108,5 +120,10 @@ internal class SingleChoiceDialogAdapter(
     this.items = items
     this.selection = listener
     this.notifyDataSetChanged()
+  }
+
+  override fun disableItems(indices: IntArray) {
+    this.disabledIndices = indices
+    notifyDataSetChanged()
   }
 }
