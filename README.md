@@ -1,7 +1,7 @@
 # Material Dialogs
 
-**Looking for older versions, before version 2.0? [Click here](README_OLD.md). Note that they will 
-not receive feature updates or bug fixes.**
+**Looking for the README for versions before 2.0? [Click here](README_OLD.md). Note that pre-2.0 
+versions will no longer receive support.**
 
 ![Screenshots](https://raw.githubusercontent.com/afollestad/material-dialogs/af/2.0/art/showcase20.jpg)
 
@@ -78,17 +78,18 @@ The whole library has been rebuilt, layouts and everything. The library is 100% 
 changed and a lot of things will be broken if you upgrade from the older version. Other things 
 to note:
 
-1. There is no longer a separate `Builder` class, it's all-in-one.
-2. All classes exist in the `core` module, the other extension dependencies
+1. **This library will be more opinionated. Not every feature request will be implemented.**
+2. There is no longer a separate `Builder` class, it's all-in-one.
+3. All classes exist in the `core` module, the other extension dependencies
 take advantage of Kotlin extensions to add functionality to it.
-3. The use of the neutral button is deprecated to discourage use, see the 
+4. The use of the neutral button is deprecated to discourage use, see the 
 [newer Material guidelines](https://material.io/design/components/dialogs.html#actions).
-4. There is no longer a progress dialog included in library, since they are discouraged by Google, 
+5. There is no longer a progress dialog included in library, since they are discouraged by Google, 
 and discouraged by me. You should prefer a non-blocking inline progress indicator.
-5. No dynamic color support, your dialogs will match your app theme. *I will be making sure 
+6. No dynamic color support, your dialogs will match your app theme. *I will be making sure 
 [Aesthetic](https://github.com/afollestad/aesthetic) works correctly with this library if you really 
 need dynamic theming.*
-6. Other things will probably be added here.
+7. Other things will probably be added here.
 
 ## Getting Started
 
@@ -268,7 +269,7 @@ Single choice lists use the `listItemsSingleChoice` extension on `MaterialDialog
 ```kotlin
 MaterialDialog(this)
   ...
-  .listItemsSingleChoice(R.array.my_items, initialSelection = 1) { _, index, text ->
+  .listItemsSingleChoice(R.array.my_items) { _, index, text ->
     // 
   }
   .show()
@@ -515,8 +516,8 @@ dialog.show()
 ## Miscellaneous
 
 There are little details which are easy to miss. For an example, auto dismiss controls whether pressing 
-the action buttons will automatically dismiss the dialog or not. By default, it's turned on. You can 
-disable it:
+the action buttons or tapping a list item will automatically dismiss the dialog or not. By default, 
+it's turned on. You can disable it:
 
 ```kotlin
 MaterialDialog(this)
